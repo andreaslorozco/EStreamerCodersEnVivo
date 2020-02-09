@@ -1,13 +1,19 @@
 const { Router } = require('express');
 const axios = require('axios').default;
-
-const { CLIENT_ID } = process.env;
+const rateLimit = require('express-rate-limit');
+const { filterResults } = require('./utils');
 
 const router = Router();
 
-const { filterResults } = require('./utils');
+const limiter = rateLimit({
+  windowMs: 10 * 1000, // 10 seconds??
+  max: 1, // limit each IP to 100 requests per windowMs
+  message: 'Demasiados request, por favor intenta de nuevo luego.',
+});
 
-router.get('/', async (req, res) => {
+const { CLIENT_ID } = process.env;
+
+router.get('/', limiter, async (req, res) => {
   try {
     const response = await axios({
       method: 'GET',
@@ -16,7 +22,7 @@ router.get('/', async (req, res) => {
         'Client-ID': CLIENT_ID,
       },
     });
-    const filteredResults = filterResults( response.data.data);
+    const filteredResults = filterResults(response.data.data);
     res.json({
       data: filteredResults,
     });
