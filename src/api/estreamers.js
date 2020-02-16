@@ -6,7 +6,7 @@ const { filterResults } = require('./utils');
 const router = Router();
 
 const limiter = rateLimit({
-  windowMs: 10 * 1000, // 10 seconds??
+  windowMs: 9 * 1000,
   max: 1, // limit each IP to 100 requests per windowMs
   message: 'Demasiados request, por favor intenta de nuevo luego.',
 });
