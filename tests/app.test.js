@@ -18,6 +18,6 @@ describe('GET /', () => {
       .get('/')
       .set('Accept', 'application/json')
       .expect('Content-type', /json/)
-      .expect(200, { message: '¡Hola mundo!' }, done);
+      .expect(200, { message: '¡Hola mundo, vamos a probar deploys automaticos a Now.sh!' }, done);
   });
 });
