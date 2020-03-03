@@ -10,7 +10,7 @@ app.use(morgan('tiny'));
 
 app.get('/', async (req, res) => {
   res.json({
-    message: '¡Hola mundo!',
+    message: '¡Hola mundo, vamos a probar deploys automaticos a Now.sh!',
   });
 });
 
